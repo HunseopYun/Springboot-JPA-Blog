@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 //@Controller
 
 //사용자가 요청 -> 응답(Data)
+//restController는 문자자체를 리턴해준다.
 @RestController
 public class HttpControllerTest {
 
 	private static final String TAG = "HttpControllerTest : ";
 	
+	//localhost:8000/blog/http/lombok
 	@GetMapping("/http/lombok")
 	public String lombokTest() {
 		Member m = Member.builder().username("ssar").password("1234").email("asdd@gmail.com").build();
