@@ -1,7 +1,6 @@
 package com.cos.blog.service;
 
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,9 +27,25 @@ public class BoardService {
 		boardRepository.save(board);
 	}
 	
+	@Transactional(readOnly = true)
 	public Page<Board> 글목록(Pageable pagealbe){
 		return boardRepository.findAll(pagealbe);
+	} 
+	
+	@Transactional(readOnly = true)
+	public Board 글상세보기(int id) {
+		return boardRepository.findById(id)
+				.orElseThrow(()->{
+					return new IllegalArgumentException("글 상세보기 실패 : 아이디를 찾을 수가 없습니다.");
+				});
 	}
+	
+	@Transactional
+	public void 글삭제하기(int id) {
+		boardRepository.deleteById(id);
+	}
+	
+	
 	
 	
 	
