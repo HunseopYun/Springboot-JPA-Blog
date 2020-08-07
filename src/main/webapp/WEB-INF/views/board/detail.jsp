@@ -4,9 +4,10 @@
 
 <div class="container">
 
-	<button class="btn btn-secondary" onclick="">Back</button>
-	<button id="btn-update" class="btn btn-warning">Edit</button>
+	<button class="btn btn-secondary" onclick="history.back()">Back</button>
+	
 	<c:if test="${board.user.id == principal.user.id}">
+	<a href="/board/${board.id}/updateForm" class="btn btn-warning">Edit</a>
 	<button id="btn-delete" class="btn btn-danger">Delete</button>
 	</c:if>
 	<br/>
