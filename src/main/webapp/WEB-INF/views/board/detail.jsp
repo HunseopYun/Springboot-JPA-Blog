@@ -38,14 +38,17 @@
 	<br />
 	<div class="card">
 		<div class="card-header">Comment List</div>
-		<ul id="comment--box" class="list-group">
- 			 <li id="comment--1" class="list-group-item d-flex justify-content-between">
- 			 	<div>Comment Content</div>
+		<ul id="reply--box" class="list-group">
+			<c:forEach var="reply" items="${board.replys}">
+			 <li id="reply--1" class="list-group-item d-flex justify-content-between">
+ 			 	<div>${reply.content}</div>
  			 	<div class="d-flex">
- 			 		<div class="font-italic">Writer : SS &nbsp;</div>
+ 			 		<div class="font-italic">Writer : ${reply.user.username} &nbsp;</div>
  			 		<button class="badge">Delete</button>
  			 	</div>
  			 </li>
+			</c:forEach>
+
 		</ul>
 
 
