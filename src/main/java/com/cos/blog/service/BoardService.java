@@ -2,7 +2,6 @@ package com.cos.blog.service;
 
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,24 +9,41 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
-import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 import com.cos.blog.repository.ReplyRepository;
-import com.cos.blog.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 
 @Service
+@RequiredArgsConstructor
 public class BoardService {
 
-	@Autowired // DI
-	private BoardRepository boardRepository;
+	/*
+	 * @Autowired를 어노테이션없이 풀어서 기술하면 아래와 같다.
+	 * 
+	 * private BoardRepository boardRepository;
+	 * private ReplyRepository replyRepository;
+	 * 
+	 * public BoardService(BoardRepository bRepo, ReplyRepository rRepo){
+	 * 		this.boardRepository = bRepo;
+	 * 		this.replyRepository = rRepo;
+	 * }
+	 * 
+	 */
 	
-	@Autowired
-	private ReplyRepository replyRepository;
-	
+//	@Autowired // DI
+//	private BoardRepository boardRepository;
+//	
 //	@Autowired
-//	private UserRepository userRepository;
+//	private ReplyRepository replyRepository;
+	
+	// 위의 방법보다 더 간단하게 DI하는 법
+	// 아래와 같이 파이널 선언을 해주고 나면 초기화를 해주어함
+	// 그래서 메인 함수에 어노테이션 @RequiredArgsConstructor 을 붙혀줌으로서 초기화시켜줌
+	private final BoardRepository boardRepository;
+	private final ReplyRepository replyRepository;
 	
 	@Transactional
 	public void 글쓰기(Board board, User user) {  // title, content
