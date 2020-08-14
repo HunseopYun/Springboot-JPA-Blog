@@ -20,14 +20,14 @@ import com.cos.blog.repository.UserRepository;
 @Service
 public class BoardService {
 
-	@Autowired
+	@Autowired // DI
 	private BoardRepository boardRepository;
 	
 	@Autowired
 	private ReplyRepository replyRepository;
 	
-	@Autowired
-	private UserRepository userRepository;
+//	@Autowired
+//	private UserRepository userRepository;
 	
 	@Transactional
 	public void 글쓰기(Board board, User user) {  // title, content
@@ -68,6 +68,7 @@ public class BoardService {
 	@Transactional
 	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
 		
+		/* 아래와 같이 영속화를 하여 구현할 수도 있음
 		User user = userRepository.findById(replySaveRequestDto.getUserId())
 				.orElseThrow(()->{
 			return new IllegalArgumentException("댓글 쓰기 실패 : 유저 id를 찾을 수 없습니다.");
@@ -83,12 +84,17 @@ public class BoardService {
 				.user(user)
 				.content(replySaveRequestDto.getContent())
 				.build();
+				*/
 		
 // 위의 빌더를 이용하지 않고 좀더 편리하게
 //		Reply reply = new Reply();
 //		reply.update(user, board, replySaveRequestDto.getContent());
 		
-		replyRepository.save(reply);
+		//replyRepository.save(reply);
+		
+		
+		// 네이티브 쿼리를 하용해서 간편하게 가능, 인터페이스에서 네이티브 쿼리를 작성하여 영속화를 하지 않고 편하게 처리
+		int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
 	}
 	
 	

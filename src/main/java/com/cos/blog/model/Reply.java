@@ -43,11 +43,18 @@ public class Reply {
 	private User user;
 	
 	@CreationTimestamp
-	private Timestamp createData;
+	private Timestamp createDate;
 	
 	public void update(User user, Board board, String content) {
 		setUser(user);
 		setBoard(board);
 		setContent(content);
 	}
+	@Override
+	public String toString() {
+		return "Reply [id=" + id + ", content=" + content + ", board=" + board
+				+ ", user=" + user + ", createData=" + createDate + "]";
+	}
+	
+	
 }
