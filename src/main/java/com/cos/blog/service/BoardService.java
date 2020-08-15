@@ -102,15 +102,21 @@ public class BoardService {
 				.build();
 				*/
 		
-// 위의 빌더를 이용하지 않고 좀더 편리하게
-//		Reply reply = new Reply();
-//		reply.update(user, board, replySaveRequestDto.getContent());
+		// 위의 빌더를 이용하지 않고 좀더 편리하게
+		//		Reply reply = new Reply();
+		//		reply.update(user, board, replySaveRequestDto.getContent());
 		
 		//replyRepository.save(reply);
 		
 		
 		// 네이티브 쿼리를 하용해서 간편하게 가능, 인터페이스에서 네이티브 쿼리를 작성하여 영속화를 하지 않고 편하게 처리
 		int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
+	}
+	
+	
+	@Transactional
+	public void 댓글삭제(int replyId) {
+		replyRepository.deleteById(replyId);
 	}
 	
 	
